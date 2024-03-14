@@ -4,27 +4,7 @@ metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
 spec:
-  type: library
-  owner: Yenny.Yurani.Taborda@ibm.com
-  lifecycle: experimental
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: MicroserviceForAppBackstage
-  description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
-spec:
   type: website
-  owner: Yenny.Yurani.Taborda@ibm.com
-  lifecycle: experimental
----
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: MicroserviceForAppBackstage
-  description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
-spec:
-  type: service
   owner: Yenny.Yurani.Taborda@ibm.com
   lifecycle: experimental
 
