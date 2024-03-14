@@ -5,5 +5,5 @@ metadata:
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
 spec:
   type: service
-  owner: Yenny.Yurani.Taborda@ibm.com
+  owner: tarayenny@gmail.com
   lifecycle: experimental
