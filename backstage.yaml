@@ -4,7 +4,7 @@ metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
 spec:
-  type: website
+  type: service
   owner: Yenny.Yurani.Taborda@ibm.com
   lifecycle: experimental
 
