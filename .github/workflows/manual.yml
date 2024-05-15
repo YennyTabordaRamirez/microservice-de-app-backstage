@@ -1,36 +1,21 @@
-name: Deploy to ArgoCD
+name: Download ArgoCD Manifests
 
 on:
   push:
     branches:
-      - master # O el nombre de tu rama principal
+      - main
 
 jobs:
-  deploy:
+  download_manifests:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    - name: Install OpenShift CLI
-      run: |
-        # Instalar OpenShift CLI
-        curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
-        tar -xvf openshift-client-linux.tar.gz
-        sudo mv oc /usr/local/bin
-        sudo chmod +x /usr/local/bin/oc
-    - name: Login to OpenShift cluster
-      run: |
-        # Log in al clúster de OpenShift
-        oc login --token=sha256~AzpPXeivIXrAItkU3tliiPITF00th9sScxDoGQsfeyc --server=https://c116-e.us-south.containers.cloud.ibm.com:32543
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNTg3MTEwNiwibmJmIjoxNzE1Nzg0NzA2LCJpYXQiOjE3MTU3ODQ3MDYsImp0aSI6ImYzMjVkNmQ4LTZkOWEtNGQ4Ni1hZjczLTA5NWYyNzJlYWI4ZiJ9.vz8NikMW0ItFM1qV4YbdcpWbjUzFhWob2Ff9Ya3-gZc" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNTg3Njk4NCwibmJmIjoxNzE1NzkwNTg0LCJpYXQiOjE3MTU3OTA1ODQsImp0aSI6ImIxZjQwYmJjLWRmNTAtNDgxNy05MGYxLTNiODM2M2YwN2M1NyJ9.KKhhgDf5PLGLuKmsdxm1txDRM4siaGbsjg5xKN6yrWE" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
     - name: Display downloaded manifests
       run: cat bubble-animation.yaml
 
-    - name: Apply manifests with ArgoCD
-      run: |
-        oc apply -f bubble-animation.yaml
-        oc rollout status deployment/bubble-animation
