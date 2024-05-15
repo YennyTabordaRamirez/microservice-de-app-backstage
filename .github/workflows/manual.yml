@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Deploy to ArgoCD
 
 on:
   push:
@@ -6,40 +6,31 @@ on:
       - main  # O el nombre de tu rama principal
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build Docker image
-      run: docker build -t microservice-app-backstage:latest .
-
-    - name: Push Docker image to Docker Hub
-      run: docker push microservice-app-backstage:latest
-
-    - name: Install kubectl
+    - name: Install OpenShift CLI
       run: |
-        sudo apt-get update
-        sudo apt-get install -y kubectl
-
-    - name: Apply Kubernetes resources
+        # Instalar OpenShift CLI
+        curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+        tar -xvf openshift-client-linux.tar.gz
+        sudo mv oc /usr/local/bin
+        sudo chmod +x /usr/local/bin/oc
+    - name: Login to OpenShift cluster
       run: |
-        kubectl apply -f - <<EOF
-apiVersion: backstage.io/v1alpha1
-kind: Component
-metadata:
-  name: MicroserviceForAppBackstage
-  description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
-spec:
-  type: service
-  owner: Yenny.Yurani.Taborda@ibm.com
-  lifecycle: experimental
-EOF
+        # Log in al clúster de OpenShift
+        oc login --token=sha256~AzpPXeivIXrAItkU3tliiPITF00th9sScxDoGQsfeyc --server=https://c116-e.us-south.containers.cloud.ibm.com:32543
+    - name: Download ArgoCD manifests
+      run: |
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNTg3MTEwNiwibmJmIjoxNzE1Nzg0NzA2LCJpYXQiOjE3MTU3ODQ3MDYsImp0aSI6ImYzMjVkNmQ4LTZkOWEtNGQ4Ni1hZjczLTA5NWYyNzJlYWI4ZiJ9.vz8NikMW0ItFM1qV4YbdcpWbjUzFhWob2Ff9Ya3-gZc" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
+    - name: Display downloaded manifests
+      run: cat bubble-animation.yaml
+
+    - name: Apply manifests with ArgoCD
+      run: |
+        oc apply -f bubble-animation.yaml
+        oc rollout status deployment/bubble-animation
