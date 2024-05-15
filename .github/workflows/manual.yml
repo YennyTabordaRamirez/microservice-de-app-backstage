@@ -1,9 +1,10 @@
+
 name: Download ArgoCD Manifests
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   download_manifests:
@@ -18,4 +19,3 @@ jobs:
         curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNTg3Njk4NCwibmJmIjoxNzE1NzkwNTg0LCJpYXQiOjE3MTU3OTA1ODQsImp0aSI6ImIxZjQwYmJjLWRmNTAtNDgxNy05MGYxLTNiODM2M2YwN2M1NyJ9.KKhhgDf5PLGLuKmsdxm1txDRM4siaGbsjg5xKN6yrWE" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
     - name: Display downloaded manifests
       run: cat bubble-animation.yaml
-
