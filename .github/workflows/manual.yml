@@ -27,12 +27,17 @@ jobs:
       run: |
         oc login https://c116-e.us-south.containers.cloud.ibm.com:32543 --token=sha256~pI3Xenpr9ZuE6mlqb5JrVCMCp6gOeDVe4hNEPzFZ7oE
 
-    # Paso 4: Descarga de los Manifestos de ArgoCD
+    # Paso 4: Inicio de sesión en ArgoCD
+    - name: Login to ArgoCD
+      run: |
+        argocd login openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud --username=admin --password=OIEWwcMoDRrZgVu5yTxFat37H4jQXkK1 --insecure
+
+    # Paso 5: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNjA0NjUxMywibmJmIjoxNzE1OTYwMTEzLCJpYXQiOjE3MTU5NjAxMTMsImp0aSI6ImQ1ZDYzYWM1LTEwMTAtNDhjMy04NDZkLTEzMzRiNjI4M2JlZCJ9.ZMXf6iYVZk4Zn8XVJRcY0OOSVqLzaEoP0rVFQFHOHvc" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
+        argocd app get bubble-animation -o json > bubble-animation.yaml
 
-    # Paso 5: Verificación de la existencia del archivo
+    # Paso 6: Verificación de la existencia del archivo
     - name: Check if file exists
       run: |
         # Comprueba si el archivo bubble-animation.yaml existe en el directorio actual
@@ -43,6 +48,6 @@ jobs:
           exit 1  # Termina el flujo de trabajo con un código de error si el archivo no se encuentra
         fi
 
-    # Paso 6: Visualización de los Manifestos Descargados
+    # Paso 7: Visualización de los Manifestos Descargados
     - name: Display downloaded manifests
       run: cat bubble-animation.yaml
