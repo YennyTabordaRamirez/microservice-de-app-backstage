@@ -1,4 +1,3 @@
-
 name: Download ArgoCD Manifests
 
 on:
@@ -11,11 +10,34 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    # Paso 1: Checkout del repositorio
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    # Paso 2: Instalación de la CLI de OpenShift
+    - name: Install OpenShift CLI
+      run: |
+        # Descarga la CLI de OpenShift
+        curl -L -o oc.tar.gz https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz
+        # Descomprime la CLI
+        tar -xvf oc.tar.gz
+        # Mueve el binario a un directorio en el PATH
+        sudo mv oc /usr/local/bin/
+        # Otorga permisos de ejecución al binario
+        sudo chmod +x /usr/local/bin/oc
+
+    # Paso 3: Inicio de sesión en OpenShift
+    - name: Login to OpenShift
+      run: |
+        # Utiliza la CLI de OpenShift para iniciar sesión con el token proporcionado
+        oc login https://c116-e.us-south.containers.cloud.ibm.com:32543 --token=sha256~pI3Xenpr9ZuE6mlqb5JrVCMCp6gOeDVe4hNEPzFZ7oE
+
+    # Paso 4: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNTg3Njk4NCwibmJmIjoxNzE1NzkwNTg0LCJpYXQiOjE3MTU3OTA1ODQsImp0aSI6ImIxZjQwYmJjLWRmNTAtNDgxNy05MGYxLTNiODM2M2YwN2M1NyJ9.KKhhgDf5PLGLuKmsdxm1txDRM4siaGbsjg5xKN6yrWE" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
+        # Utiliza curl con el token de autenticación para descargar los manifestos de ArgoCD
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTcxNjA0NjUxMywibmJmIjoxNzE1OTYwMTEzLCJpYXQiOjE3MTU5NjAxMTMsImp0aSI6ImQ1ZDYzYWM1LTEwMTAtNDhjMy04NDZkLTEzMzRiNjI4M2JlZCJ9.ZMXf6iYVZk4Zn8XVJRcY0OOSVqLzaEoP0rVFQFHOHvc" -o bubble-animation.yaml https://openshift-gitops-server-openshift-gitops.team-kogito-dal10-b3c-4x1-2bd74c909703714447d03dd3414739fe-0000.us-south.containers.appdomain.cloud/api/v1/applications/bubble-animation > bubble-animation.yaml
+
+    # Paso 5: Visualización de los Manifestos Descargados
     - name: Display downloaded manifests
-      run: cat bubble-animation.yaml
+      run: cat bubble
