@@ -30,7 +30,7 @@ jobs:
     # Paso 4: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTYyMzI2NjUsImlhdCI6MTcxNjIzMjY2NSwianRpIjoidG9rZW4tYXJnbyJ9.Nb31LPTCecbYgdk3BdpNlhjnmld0nI5VvrGPGXy-ygM" -o bgd2.yaml http://52.118.154.194/api/v1/applications/bdg2
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTYyMzI2NjUsImlhdCI6MTcxNjIzMjY2NSwianRpIjoidG9rZW4tYXJnbyJ9.Nb31LPTCecbYgdk3BdpNlhjnmld0nI5VvrGPGXy-ygM" -o bgd2.yaml http://52.118.154.194
 
     # Paso 5: Verificación de la existencia del archivo
     - name: Check if file exists
