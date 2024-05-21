@@ -1,14 +1,12 @@
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: microservice
 metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
-
   links:
     - url: https://github.com
       title: Repository
-      icon: github
-      
+      icon: github     
 spec:
   type: service
   owner: Yenny.Yurani.Taborda@ibm.com
