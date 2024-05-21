@@ -1,5 +1,5 @@
 apiVersion: backstage.io/v1alpha1
-kind: microservice
+kind: Component
 metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
