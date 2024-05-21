@@ -3,10 +3,6 @@ kind: Component
 metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
-  links:
-    - url: https://github.com
-      title: Repository
-      icon: github     
 spec:
   type: service
   owner: Yenny.Yurani.Taborda@ibm.com
