@@ -25,12 +25,12 @@ jobs:
     # Paso 3: Inicio de sesión en OpenShift
     - name: Login to OpenShift
       run: |
-        oc login --token=sha256~j9tqi9iSi78KOTBjH0D8FcxM2qh23JX7WfpA9fS61wg --server=https://c117-e.us-south.containers.cloud.ibm.com:30790
+        oc login --token=sha256~sPEVphZxfNA6fbGcLqPRVxDs7vIWoepGKTosjUPTmCQ --server=https://c117-e.us-south.containers.cloud.ibm.com:30790
 
     # Paso 4: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTYyMzI2NjUsImlhdCI6MTcxNjIzMjY2NSwianRpIjoidG9rZW4tYXJnbyJ9.Nb31LPTCecbYgdk3BdpNlhjnmld0nI5VvrGPGXy-ygM" -o bgd2.yaml http://52.118.154.194/api/v1/applications/bdg2
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTY0MTA1NDgsImlhdCI6MTcxNjQxMDU0OCwianRpIjoiYXJnby10b2tlbiJ9.BoNreI3Gelmx9NjEAIWlgUdCka0Rcg8Jhio-GTkdK3A" -o bgd2.yaml http://52.118.154.197/api/v1/applications/bdg2
 
     # Paso 5: Verificación de la existencia del archivo
     - name: Check if file exists
