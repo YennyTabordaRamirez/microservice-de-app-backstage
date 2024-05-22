@@ -30,18 +30,18 @@ jobs:
     # Paso 4: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
       run: |
-        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTY0MTA1NDgsImlhdCI6MTcxNjQxMDU0OCwianRpIjoiYXJnby10b2tlbiJ9.BoNreI3Gelmx9NjEAIWlgUdCka0Rcg8Jhio-GTkdK3A" -o bgd2.yaml http://52.118.154.197/api/v1/applications/bdg2
+        curl -k -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjphcGlLZXkiLCJuYmYiOjE3MTY0MTA1NDgsImlhdCI6MTcxNjQxMDU0OCwianRpIjoiYXJnby10b2tlbiJ9.BoNreI3Gelmx9NjEAIWlgUdCka0Rcg8Jhio-GTkdK3A" -o bgd2.yaml http://52.118.154.197/api/v1/applications/bdg-app
 
     # Paso 5: Verificación de la existencia del archivo
     - name: Check if file exists
       run: |
-        if [ -f "bgd2.yaml" ]; then
-          echo "Archivo bgd2.yaml encontrado."
+        if [ -f "bgd-app.yaml" ]; then
+          echo "Archivo bgd-app.yaml encontrado."
         else
-          echo "Archivo bgd2.yaml no encontrado."
+          echo "Archivo bgd-app.yaml no encontrado."
           exit 1
         fi
 
     # Paso 6: Visualización de los Manifestos Descargados
     - name: Display downloaded manifests
-      run: cat bgd2.yaml
+      run: cat bgd-app.yaml
