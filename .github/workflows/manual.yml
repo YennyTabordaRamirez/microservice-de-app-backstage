@@ -28,7 +28,8 @@ jobs:
     # Paso 3: Inicio de sesión en OpenShift
     - name: Login to OpenShift
       run: |
-        oc login --token=sha256~OdT7lcG_GPwsxX1QzFf5DbgwHZ3RaqJ5afjC9yKAsM8 --server=https://c117-e.us-south.containers.cloud.ibm.com:30790
+        oc login --token=sha256~Q6MCDvTMaklTbqQo6-vW9Qmg91_Uh2fVSK7tokwKusY --server=https://c117-e.us-south.containers.cloud.ibm.com:30790
+
 
     # Paso 4: Descarga de los Manifestos de ArgoCD
     - name: Download ArgoCD manifests
