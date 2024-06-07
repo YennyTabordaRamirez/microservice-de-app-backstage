@@ -3,6 +3,8 @@ kind: Component
 metadata:
   name: MicroserviceForAppBackstage
   description: Microservicio de citas de laboratorio, pacientes y tipos de exámenes.
+  annotations:
+    backstage.io/kubernetes-id: MicroserviceForAppBackstage
 spec:
   type: service
   owner: Yenny.Yurani.Taborda@ibm.com
