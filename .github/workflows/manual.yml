@@ -1,4 +1,4 @@
-# name: Deploy Application with Namespace Creation
+# name: Deploy Application with Namespace Creation 
 
 # on:
 #   push:
